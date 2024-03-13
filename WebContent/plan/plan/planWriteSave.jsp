@@ -1,19 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<!-- 아이디 유효성 검사 (세션아이디 가져오기) -->
-<%
-	String USERID = (String) session.getAttribute("SessionUserId");
-	if( USERID == null ) {
-%>
-	<script>
-		alert("로그인 이후에 이용가능합니다.");
-		location = "../member/loginWrite.jsp";
-	</script>
-<%		
-	return;
-	}
-%>
+<%@ include file = "../include/certificate.jsp" %>
 
 <!-- DB가져오기 -->
 <%@ include file = "../include/dbCon.jsp" %>
