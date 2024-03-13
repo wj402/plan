@@ -61,7 +61,7 @@ $( function() {
 		 f.pdate.focus();
 		 return false;
 	 }
-	 if( f.pdate.title == "" ) {
+	 if( f.title.value == "" ) {
 		 alert("제목을 입력해주세요.");
 		 f.title.focus();
 		 return false;
