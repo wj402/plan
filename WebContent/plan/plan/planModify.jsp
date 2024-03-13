@@ -40,7 +40,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>일정등록</title>
+	<title>일정수정</title>
 	<link rel="stylesheet" href="../css/jquery-ui.css">
 	<script src="../script/jquery-3.6.0.js"></script>
 	<script src="../script/jquery-ui.js"></script>
@@ -54,15 +54,22 @@ $( function() {
     });
  } );
  
- function fn_modify() {
-	 location="planModify.jsp?pdate=<%=pdate %>";
+ function fn_submit() {
+	 var f = document.frm
+	 if( f.pdate.value == "" ) {
+		 alert("날짜를 입력해주세요.");
+		 f.pdate.focus();
+		 return false;
+	 }
+	 if( f.pdate.title == "" ) {
+		 alert("제목을 입력해주세요.");
+		 f.title.focus();
+		 return false;
+	 }
+	 f.submit();
+	 
  }
  
- function fn_delete() {
-	 if( confirm("정말 삭제하시겠습니까?") ) { // [확인] [취소]
-		 location = "planDelete.jsp?pdate=<%=pdate %>";
-	 }
- }
 </script>
 
 <style>
@@ -71,7 +78,6 @@ $( function() {
 		font-family: 맑은 고딕;
 		color:#333;
 	}
-	
 	
 	table {
 		width: 380px;
@@ -98,25 +104,33 @@ $( function() {
 </style>
 
 <body>
+	<form name="frm" method="post" action="planModifySave.jsp">
+		<input type="hidden" name="pdate" value="<%=pdate %>">
+		
 		<table>
-			<caption>일정등록</caption>
+			<caption>일정수정</caption>
 			<tr>
 				<th width="20%">날짜</th>
+				<!-- 날짜변경 X -->
 				<td width="80%"><%=pdate %></td>
 			</tr>
 			<tr>
 				<th>제목</th>
-				<td><%=title %></td>
+				<td>
+					<input type="text" name="title" value="<%=title %>" style="width:98%;">
+				</td>
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td height="120" valign="top"><%=content %></td>
+				<td height="120" valign="top">
+					<textarea name="content" style="width:98%; height:150px;"><%=content %></textarea>
+				</td>
 			</tr>
 		</table>
 		<div class="div1">
-			<button type="button" onclick="fn_modify();">수정</button>
-			<button type="submit" onclick="fn_delete();">삭제</button>
+			<button type="submit" onclick="fn_submit(); return false;">저장</button>
 			<button type="button" onclick="self.close();">닫기</button>
 		</div>
+	</form>
 </body>
 </html>
