@@ -59,7 +59,9 @@ $( function() {
  }
  
  function fn_delete() {
-	 
+	 if( confirm("정말 삭제하시겠습니까?") ) { // [확인] [취소]
+		 location = "planDelete.jsp?pdate=<%=pdate %>";
+	 }
  }
 </script>
 
@@ -96,7 +98,6 @@ $( function() {
 </style>
 
 <body>
-	<form name="frm" method="post" action="planWriteSave.jsp">
 		<table>
 			<caption>일정등록</caption>
 			<tr>
@@ -117,6 +118,5 @@ $( function() {
 			<button type="submit" onclick="fn_delete();">삭제</button>
 			<button type="button" onclick="self.close();">닫기</button>
 		</div>
-	</form>
 </body>
 </html>
