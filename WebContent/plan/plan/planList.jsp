@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file = "../include/certificate.jsp" %>
+<%@ include file = "../include/dbCon.jsp" %>
 
 <%@ page import="java.util.Calendar" %>
 
@@ -87,6 +88,14 @@
 		var url = "planWrite.jsp";
 		window.open(url, "planWrite", "width=400, height=400, left="+w+", top="+h);
 	}
+	
+	function fn_detail(v) {
+		
+		var w = (window.screen.width/2) - 200;
+		var h = (window.screen.height/2) - 200;
+		var url = "planView.jsp?pdate="+v;
+		window.open(url,"planView","width=400, height=400, left="+w+", top="+h);
+	}
 </script>
 
 <body>
@@ -147,9 +156,27 @@
 								} else if (count == 1) {
 									color = "red";
 								}
+								
+								String f_date = y+"-"+(m+1)+"-"+d;
+								String f_sql = "select count(*) cnt from plan ";
+									   f_sql+= "	where userid='"+USERID+"' ";
+									   f_sql+= "		and pdate = '"+f_date+"' ";
+								ResultSet f_rs = stmt.executeQuery(f_sql);
+								f_rs.next();
+								
+								int f_cnt = f_rs.getInt("cnt");
+								
+								if( f_cnt == 1 ) {
+									color="pink";
+							%>
+								<td style="color:<%=color %>"><a href="javascript:fn_detail('<%=f_date %>')" ><%=d %></a></td>
+							<%			
+								} else {
 						%>
 							<td style="color:<%=color %>"><%=d %></td>
 						<%
+							}
+								
 								// 개행을 위한 설정
 								if( count == 7 ) {
 									out.print("</tr><tr>");
